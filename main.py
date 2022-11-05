@@ -1,9 +1,3 @@
-"""
-author: Jaroslav List
-email: jaroslav.list@kiwi.com
-discord: Jara#4939
-"""
-
 import sys
 from time import sleep
 import termplotlib as tpl
