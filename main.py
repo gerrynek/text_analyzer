@@ -7,10 +7,14 @@ discord: Jara#4939
 import sys
 from time import sleep
 from loading import loading
+import termplotlib as tpl
+import numpy as np
 
 from database import TEXTS
 from auth import authenticate
 from string_formating import eliminateInterpuction, prepareText
+from text_analysis import countOfWords, countOfFirstCapital, countOfCapitalCase, countOfLowerCase, sumOfNumbers, countOfNumbers
+
 
 
 credentials = input("Enter login and password splitted by colon(:): ")
@@ -41,50 +45,35 @@ while True:
     except ValueError:
         print("Please insert a number!")
 
-print("\n",TEXTS[text_selection-1], "\n")
-
 list_for_analysis = eliminateInterpuction(prepareText(TEXTS[text_selection-1]))
 
-count_of_words = 0
-count_of_words = len(list_for_analysis)
-print("Total number of words: ",count_of_words)
+print("Total number of words: ", countOfWords(list_for_analysis))
+print("Words starting with capital: ", countOfFirstCapital(list_for_analysis))
+print("Words in upper case: ",countOfCapitalCase(list_for_analysis))
+print("Words in lower case: ",countOfLowerCase(list_for_analysis))
+print("Numbers: ",countOfNumbers(list_for_analysis))
+print("Sum of numbers is: ",sumOfNumbers(list_for_analysis),"\n")
 
-count_of_first_capital = 0
-for word in list_for_analysis:
-    if word.istitle():
-        count_of_first_capital+=1
-print("Words starting with capital: ",count_of_first_capital)
-
-count_of_capital_case = 0
-for word in list_for_analysis:
-    if word.isupper():
-        count_of_capital_case+=1
-print("Words in upper case: ",count_of_capital_case)
-
-count_of_lower_case = 0
-for word in list_for_analysis:
-    if word.islower():
-        count_of_lower_case+=1
-print("Words in lower case: ",count_of_lower_case)
-
-count_of_numbers = 0
-sum_of_numbers = 0
-for word in list_for_analysis:
-    if word.isnumeric():
-        count_of_numbers+=1
-        sum_of_numbers+=int(word)
-print("Numbers: ",count_of_numbers)
-print("Sum of numbers is: ",sum_of_numbers)
-
-dict_ = {}
+count_of_lengths = {}
 count = 0
-
+list_of_lengths=[]
 for word in list_for_analysis:
-    count = list_for_analysis.count(i)
-    dict_.update({word:count})
+    list_of_lengths.append(len(word))
 
-print(dict_)
+for length in list_of_lengths:
+    count = list_of_lengths.count(length)
+    count_of_lengths.update({length:count})
 
-"""
-Program zobrazí jednoduchý sloupcový graf, který bude reprezentovat četnost různých délek slov v textu. Například takto:
-"""
+count_of_lengths_sorted = dict(sorted(count_of_lengths.items()))
+
+x = []
+y = []
+
+for key, value in count_of_lengths_sorted.items():
+    x.append(value)
+    y.append(key)
+
+print("|len|", "|count|")
+fig = tpl.figure()
+fig.barh(x, y)
+fig.show()

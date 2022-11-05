@@ -11,5 +11,8 @@ def eliminateInterpuction(raw_list):
         x = i.replace(",", "")
         x = x.replace(".", "")
         x = x.replace("!", "")
+        x = x.replace(":", "")
+        x = x.replace(";", "")
+        x = x.replace("\"", "")
         list_of_words.append(x)
     return list_of_words
