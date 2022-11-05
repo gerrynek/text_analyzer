@@ -14,7 +14,7 @@ from auth import authenticate
 from string_formating import eliminateInterpuction, prepareText
 from text_analysis import countOfWords, countOfFirstCapital, countOfCapitalCase, countOfLowerCase, sumOfNumbers, countOfNumbers, countOfOccurencies
 
-
+#Authentication
 credentials = input("Enter login and password splitted by colon(:): ")
 
 try:
@@ -23,6 +23,7 @@ except IndexError:
     print("Wrong format of credentials!")
     sys.exit(3)
 
+#Some pretty useless stuff
 print("\n", "Loading database", "\n")
 for step in range(21):
     loading(step)
@@ -30,6 +31,7 @@ for step in range(21):
     if step == 20:
         print()
 
+#Text selection
 while True:
     try:
         text_selection = int(input("\nSelect which text you want to analyze (1-3): "))
@@ -41,6 +43,7 @@ while True:
     except ValueError:
         print("Please insert a number!")
 
+#Analysis results+String formating
 list_for_analysis = eliminateInterpuction(prepareText(TEXTS[text_selection-1]))
 
 print("\n")
@@ -52,6 +55,7 @@ print("Numbers: ",countOfNumbers(list_for_analysis))
 print("Sum of numbers is: ",sumOfNumbers(list_for_analysis))
 print("\n")
 
+#Plotting
 count_of_lengths_sorted = countOfOccurencies(list_for_analysis)
 
 x = []
