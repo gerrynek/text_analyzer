@@ -3,8 +3,7 @@ from database import user_database
 
 
 def authenticate(credentials):
-    upd_credentials = credentials.lower()
-    repl_credentials = upd_credentials.replace(" ", "")
+    repl_credentials = credentials.replace(" ", "")
     login = repl_credentials.split(":")[0]
     password = repl_credentials.split(":")[1]
 
@@ -16,4 +15,4 @@ def authenticate(credentials):
             sys.exit(1)
     else:
         print("User not in database!")
-        sys.exit(1)
+        sys.exit(2)

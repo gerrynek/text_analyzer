@@ -29,9 +29,25 @@ def countOfNumbers(data):
     for word in data:
         if word.isnumeric():
             count_of_numbers+=1
+    return count_of_numbers
 
 def sumOfNumbers(data):
     sum_of_numbers = 0
     for word in data:
         if word.isnumeric():
             sum_of_numbers+=int(word)
+    return sum_of_numbers
+
+def countOfOccurencies(data):
+    count_of_lengths = {}
+    count = 0
+    list_of_lengths=[]
+    for word in data:
+        list_of_lengths.append(len(word))
+
+    for length in list_of_lengths:
+        count = list_of_lengths.count(length)
+        count_of_lengths.update({length:count})
+
+    count_of_lengths_sorted = dict(sorted(count_of_lengths.items()))
+    return count_of_lengths_sorted
